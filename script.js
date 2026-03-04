@@ -195,11 +195,16 @@ function renderCards() {
    ══════════════════════════════════════ */
 let selectedSize    = null;
 let currentProduct  = null;
+let viewerZoom      = 1;
+let viewerIndex     = 0;
+let viewerImages    = [];
 
 function openModal(i) {
   const p = products[i];
   currentProduct = p;
   selectedSize   = null;
+  viewerImages   = p.images || [];
+  viewerIndex    = 0;
 
   // galeria de fotos
   const track = document.getElementById('galleryTrack');
@@ -218,6 +223,14 @@ function openModal(i) {
     const idx = Math.round(track.scrollLeft / (track.scrollWidth / p.images.length));
     document.querySelectorAll('.dot').forEach((d, j) => d.classList.toggle('active', j === idx));
   };
+
+  // clique na foto para abrir visualizador com zoom e navegação
+  track.querySelectorAll('.gallery-img').forEach((img, idx) => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      openImageViewer(idx);
+    });
+  });
 
   // informações
   document.getElementById('modalBrand').textContent = p.brand;
@@ -259,6 +272,59 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
+/* ══════════════════════════════════════
+   VISUALIZADOR DE IMAGEM (ZOOM)
+   ══════════════════════════════════════ */
+const imageViewerOverlay = document.getElementById('imageViewerOverlay');
+const imageViewerImg     = document.getElementById('imageViewerImg');
+const imageViewerClose   = document.getElementById('imageViewerClose');
+const imageViewerPrev    = document.getElementById('imageViewerPrev');
+const imageViewerNext    = document.getElementById('imageViewerNext');
+
+function updateImageViewer() {
+  if (!imageViewerImg || !viewerImages.length) return;
+  const clampedIndex = ((viewerIndex % viewerImages.length) + viewerImages.length) % viewerImages.length;
+  viewerIndex = clampedIndex;
+  const src = viewerImages[viewerIndex];
+  imageViewerImg.src = src;
+  const baseAlt = currentProduct ? currentProduct.name : 'Imagem do produto';
+  imageViewerImg.alt = `${baseAlt} - foto ${viewerIndex + 1}`;
+  // reseta zoom ao mudar de imagem
+  viewerZoom = 1;
+  imageViewerImg.style.transform = 'scale(1)';
+  imageViewerImg.style.cursor = 'zoom-in';
+}
+
+function openImageViewer(index) {
+  if (!imageViewerOverlay || !imageViewerImg) return;
+  viewerZoom = 1;
+  viewerIndex = index || 0;
+  updateImageViewer();
+  imageViewerImg.style.transform = 'scale(1)';
+  imageViewerImg.style.cursor = 'zoom-in';
+  imageViewerOverlay.classList.add('open');
+}
+
+function closeImageViewer() {
+  if (!imageViewerOverlay || !imageViewerImg) return;
+  imageViewerOverlay.classList.remove('open');
+  viewerZoom = 1;
+  imageViewerImg.style.transform = 'scale(1)';
+  imageViewerImg.style.cursor = 'zoom-in';
+}
+
+function nextImageViewer() {
+  if (!viewerImages.length) return;
+  viewerIndex += 1;
+  updateImageViewer();
+}
+
+function prevImageViewer() {
+  if (!viewerImages.length) return;
+  viewerIndex -= 1;
+  updateImageViewer();
+}
+
 
 /* ══════════════════════════════════════
    EVENTOS
@@ -270,8 +336,76 @@ document.getElementById('modalOverlay').onclick = (e) => {
 };
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Escape') {
+    if (imageViewerOverlay && imageViewerOverlay.classList.contains('open')) {
+      closeImageViewer();
+    } else {
+      closeModal();
+    }
+  }
+
+  if (imageViewerOverlay && imageViewerOverlay.classList.contains('open')) {
+    if (e.key === 'ArrowRight') {
+      nextImageViewer();
+    } else if (e.key === 'ArrowLeft') {
+      prevImageViewer();
+    }
+  }
 });
+
+if (imageViewerClose) {
+  imageViewerClose.onclick = closeImageViewer;
+}
+
+if (imageViewerOverlay) {
+  imageViewerOverlay.onclick = (e) => {
+    if (e.target.id === 'imageViewerOverlay') {
+      closeImageViewer();
+    }
+  };
+}
+
+if (imageViewerImg) {
+  imageViewerImg.addEventListener('click', (e) => {
+    // alterna zoom 1x / 2x ao clicar na própria imagem
+    e.stopPropagation();
+    viewerZoom = viewerZoom === 1 ? 2 : 1;
+    imageViewerImg.style.transform = `scale(${viewerZoom})`;
+    imageViewerImg.style.cursor = viewerZoom === 1 ? 'zoom-in' : 'zoom-out';
+  });
+
+  if (imageViewerOverlay) {
+    // zoom suave com scroll do mouse (apenas quando sobre a imagem)
+    imageViewerOverlay.addEventListener('wheel', (e) => {
+      // não faz zoom se estiver sobre os controles
+      if (e.target.classList.contains('image-viewer-close') || 
+          e.target.classList.contains('image-viewer-nav') ||
+          e.target.closest('.image-viewer-close') ||
+          e.target.closest('.image-viewer-nav')) {
+        return;
+      }
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.15 : -0.15;
+      viewerZoom = Math.min(3, Math.max(1, viewerZoom + delta));
+      imageViewerImg.style.transform = `scale(${viewerZoom})`;
+      imageViewerImg.style.cursor = viewerZoom === 1 ? 'zoom-in' : 'zoom-out';
+    }, { passive: false });
+  }
+}
+
+if (imageViewerPrev) {
+  imageViewerPrev.onclick = (e) => {
+    e.stopPropagation();
+    prevImageViewer();
+  };
+}
+
+if (imageViewerNext) {
+  imageViewerNext.onclick = (e) => {
+    e.stopPropagation();
+    nextImageViewer();
+  };
+}
 
 document.getElementById('footerYear').textContent = new Date().getFullYear();
 

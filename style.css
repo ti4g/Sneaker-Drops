@@ -272,6 +272,108 @@ h1 {
   transform: translateY(0);
 }
 
+
+/* ══════════════════════════════════════
+   IMAGE VIEWER (ZOOM)
+   ══════════════════════════════════════ */
+.image-viewer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 1200;
+}
+
+.image-viewer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.image-viewer-content {
+  position: relative;
+  max-width: 96vw;
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-viewer-img {
+  display: block;
+  max-width: 100%;
+  max-height: 92vh;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+  transform-origin: center center;
+  transition: transform 0.18s ease-out;
+  cursor: zoom-in;
+}
+
+.image-viewer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  z-index: 10;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-viewer-close:hover {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+.image-viewer-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  z-index: 10;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-viewer-nav:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.image-viewer-prev {
+  left: 16px;
+}
+
+.image-viewer-next {
+  right: 16px;
+}
+
 .modal-handle {
   width: 40px;
   height: 4px;
@@ -586,6 +688,32 @@ h1 {
   .size-btn {
     width: 44px;
     height: 38px;
+  }
+
+  .image-viewer-close {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .image-viewer-nav {
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+  }
+
+  .image-viewer-prev {
+    left: 12px;
+  }
+
+  .image-viewer-next {
+    right: 12px;
+  }
+
+  .image-viewer-img {
+    max-height: 85vh;
   }
 }
 .site-footer {
