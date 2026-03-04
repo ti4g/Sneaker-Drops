@@ -1,0 +1,623 @@
+/* ══════════════════════════════════════
+   FONTES — importadas via HTML
+   Display : Cormorant Garamond (títulos, preços, badges)
+   Body    : Jost (textos, botões, labels)
+   ══════════════════════════════════════ */
+
+/* ══════════════════════════════════════
+   RESET & VARIÁVEIS
+   ══════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* fundo em cinza claro quente para não "matar" o layout */
+  --bg:      #e7e4de;
+  /* cartas levemente amadeiradas, mas bem claras */
+  --surface: #f9f4ec;
+  --ink:     #151515;
+  --muted:   #8a8680;
+  --border:  #d0c4b5;
+  --green:   #25d366;
+  --radius:  18px;
+  --shadow:  0 8px 26px rgba(0, 0, 0, 0.18);
+  /* tom madeira quente para detalhes */
+  --accent-wood: #b6763b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  /* fundo mais claro e vivo, puxando para cinza/bege */
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+header {
+  padding: 52px 24px 40px;
+  text-align: center;
+  animation: fadeDown 0.6s ease both;
+}
+
+.badge {
+  display: inline-block;
+  /* destaque com tom de madeira */
+  background: var(--accent-wood);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 99px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 300;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+
+/* ══════════════════════════════════════
+   SECTION LABEL
+   ══════════════════════════════════════ */
+.section-label {
+  max-width: 1080px;
+  margin: 0 auto 18px;
+  padding: 0 16px;
+}
+
+.section-label h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(182, 118, 59, 0.7));
+}
+
+
+/* ══════════════════════════════════════
+   GRID
+   ══════════════════════════════════════ */
+.catalog {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+
+/* ══════════════════════════════════════
+   CARD
+   ══════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(182, 118, 59, 0.18);
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(.25, .8, .25, 1), box-shadow 0.28s;
+  animation: fadeUp 0.5s ease both;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+.card-img-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.card-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-img {
+  transform: scale(1.04);
+}
+
+.card-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.card-body {
+  padding: 16px 18px 18px;
+}
+
+.card-brand {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.card-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.btn-ver {
+  background: var(--accent-wood);
+  color: #fff;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 9px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-ver:hover {
+  background: #8c562b;
+  transform: scale(1.03);
+}
+
+
+/* ══════════════════════════════════════
+   MODAL OVERLAY
+   ══════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+/* ══════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════ */
+.modal {
+  background: var(--surface);
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  transform: translateY(40px);
+  transition: transform 0.3s cubic-bezier(.25, .8, .25, 1);
+  padding-bottom: 36px;
+  position: relative;
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 99px;
+  margin: 14px auto 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--ink);
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: #e0e0e0;
+}
+
+
+/* ══════════════════════════════════════
+   GALLERY
+   ══════════════════════════════════════ */
+.modal-gallery {
+  position: relative;
+  margin-top: 16px;
+}
+
+.gallery-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-img {
+  flex-shrink: 0;
+  width: calc(100% - 40px);
+  max-width: 440px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  scroll-snap-align: center;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ddd;
+  transition: background 0.2s, width 0.2s;
+}
+
+.dot.active {
+  background: var(--ink);
+  width: 18px;
+  border-radius: 99px;
+}
+
+
+/* ══════════════════════════════════════
+   MODAL BODY
+   ══════════════════════════════════════ */
+.modal-body {
+  padding: 20px 20px 0;
+}
+
+.modal-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.modal-brand {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.modal-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.modal-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.modal-desc {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.65;
+  margin-bottom: 22px;
+  font-weight: 300;
+}
+
+
+/* ══════════════════════════════════════
+   NUMERAÇÃO
+   ══════════════════════════════════════ */
+.sizes-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.77rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.sizes-label span {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+.sizes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.size-btn {
+  width: 50px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--ink);
+}
+
+.size-btn:hover {
+  border-color: var(--ink);
+  background: #fff;
+}
+
+.size-btn.selected {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+.sizes-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+/* ══════════════════════════════════════
+   BOTÃO WHATSAPP (MODAL)
+   ══════════════════════════════════════ */
+.btn-wpp-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: #0f0f0f;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 16px;
+  border-radius: 14px;
+  transition: background 0.2s;
+}
+
+.btn-wpp-modal:hover {
+  background: #333;
+}
+
+
+/* ══════════════════════════════════════
+   BOTÃO FLUTUANTE WHATSAPP
+   ══════════════════════════════════════ */
+.float-wpp {
+  position: fixed;
+  bottom: 26px;
+  right: 20px;
+  background: var(--green);
+  color: #fff;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45);
+  z-index: 999;
+  transition: transform 0.2s;
+  animation: pop 0.5s 0.8s cubic-bezier(.36, 2, .5, 1) both;
+}
+
+.float-wpp:hover {
+  transform: scale(1.1);
+}
+
+
+/* ══════════════════════════════════════
+   ANIMAÇÕES
+   ══════════════════════════════════════ */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* stagger dos cards */
+.card:nth-child(1)  { animation-delay: 0.05s; }
+.card:nth-child(2)  { animation-delay: 0.10s; }
+.card:nth-child(3)  { animation-delay: 0.15s; }
+.card:nth-child(4)  { animation-delay: 0.20s; }
+.card:nth-child(5)  { animation-delay: 0.25s; }
+.card:nth-child(6)  { animation-delay: 0.30s; }
+.card:nth-child(7)  { animation-delay: 0.35s; }
+.card:nth-child(8)  { animation-delay: 0.40s; }
+.card:nth-child(9)  { animation-delay: 0.45s; }
+.card:nth-child(10) { animation-delay: 0.50s; }
+
+
+/* ══════════════════════════════════════
+   RESPONSIVO — MOBILE
+   ══════════════════════════════════════ */
+@media (max-width: 480px) {
+  header {
+    padding: 38px 20px 26px;
+  }
+
+  .catalog {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 12px 100px;
+  }
+
+  .card-body {
+    padding: 11px 13px 13px;
+  }
+
+  .card-name {
+    font-size: 0.88rem;
+  }
+
+  .price {
+    font-size: 1rem;
+  }
+
+  .btn-ver {
+    font-size: 0.72rem;
+    padding: 8px 10px;
+  }
+
+  .gallery-img {
+    width: calc(100vw - 56px);
+  }
+
+  .size-btn {
+    width: 44px;
+    height: 38px;
+  }
+}
+.site-footer {
+  margin-top: 12px;
+  padding: 28px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-brand {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.footer-divider {
+  color: var(--border);
+  font-size: 1rem;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 400;
+}
