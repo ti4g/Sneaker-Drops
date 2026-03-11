@@ -16,7 +16,8 @@ const products = [
   {
     brand: 'Nike',
     name: 'Nike Air Force Branco',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: '🔥 Hot',
     desc: 'O Nike Air Force é um dos modelos mais icônicos da Nike. Com design clássico e acabamento premium, oferece conforto, resistência e estilo atemporal. Perfeito para o dia a dia, combina facilmente com qualquer look casual ou streetwear.',
     images: [
@@ -34,7 +35,8 @@ const products = [
   {
     brand: 'Nike',
     name: 'Nike Pegasus Bege e Preto',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: '🔥 Hot',
     desc: 'O Nike Air Zoom Pegasus é conhecido pelo seu equilíbrio entre conforto, leveza e desempenho. Ideal para caminhadas, academia ou uso diário, possui amortecimento responsivo e cabedal respirável que garante conforto durante todo o dia.',
     images: [
@@ -50,7 +52,8 @@ const products = [
   {
     brand: 'Nike',
     name: 'Nike Pegasus Preto',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: null,
     desc: 'O Nike Pegasus oferece uma experiência de corrida e caminhada extremamente confortável. Com design moderno e tecnologia de amortecimento Zoom, é um modelo leve, versátil e ideal tanto para atividades físicas quanto para uso casual.',
     images: [
@@ -63,7 +66,8 @@ const products = [
   {
     brand: 'Adidas',
     name: 'Adidas Samba',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: null,
     desc: 'O Adidas Samba é um verdadeiro clássico do streetwear mundial. Seu design minimalista e elegante combina couro premium com solado resistente, garantindo conforto e durabilidade. Um modelo atemporal que nunca sai de moda.',
     images: [
@@ -80,7 +84,8 @@ const products = [
   {
     brand: 'Vans',
     name: 'Vans KNU Bege',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: 'Novo',
     desc: 'O Vans KNU traz o estilo clássico da marca com um visual moderno e robusto. Confortável, resistente e estiloso, é perfeito para quem busca um tênis versátil para o dia a dia, combinando com diferentes estilos e ocasiões.',
     images: [
@@ -95,7 +100,8 @@ const products = [
   {
     brand: 'Vans',
     name: 'Vans KNU Preto e Branco',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: null,
     desc: 'O Vans KNU Preto e Branco mantém a essência skate da Vans com um design marcante e contemporâneo. Oferece excelente conforto, durabilidade e um visual urbano que combina facilmente com looks casuais.',
     images: [
@@ -109,7 +115,8 @@ const products = [
   {
     brand: 'Vans',
     name: 'Vans UltraRange Preto Branco',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: null,
     desc: 'O Vans UltraRange foi desenvolvido para quem busca máximo conforto e mobilidade. Leve, flexível e com excelente amortecimento, é ideal para caminhadas, uso diário e longos períodos de uso.',
     images: [
@@ -127,7 +134,8 @@ const products = [
   {
     brand: 'Vans',
     name: 'Vans Vulcanizado Preto',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: 'Novo',
     desc: 'O Vans Vulcanizado possui o tradicional solado waffle da marca, oferecendo ótima aderência e resistência. Com design clássico e minimalista, é um modelo confortável e perfeito para o uso casual no dia a dia.',
     images: [
@@ -145,7 +153,8 @@ const products = [
   {
     brand: 'Adidas',
     name: 'Adidas 4D Azul',
-    price: 'R$ 229,90',
+    price: 'R$ 179,90',
+    oldPrice: 'R$ 229,90',
     tag: 'Destaque',
     desc: 'O Adidas 4D combina tecnologia avançada de amortecimento com um design moderno e esportivo. A entressola em estrutura 4D proporciona excelente absorção de impacto e conforto para o uso diário, caminhadas ou atividades físicas. Um modelo estiloso e tecnológico que se destaca em qualquer ocasião.',
     images: [
@@ -179,8 +188,14 @@ function renderCards() {
         <p class="card-brand">${p.brand}</p>
         <p class="card-name">${p.name}</p>
         <div class="card-footer">
-          <span class="price">${p.price}</span>
-          <button class="btn-ver">Ver detalhes</button>
+          <div class="price-block">
+            ${p.oldPrice ? `<span class="price-old">${p.oldPrice}</span>` : ''}
+            <span class="price">${p.price}</span>
+          </div>
+          <div class="btn-ver-wrap">
+            ${p.oldPrice ? `<span class="price-off">22% OFF</span>` : ''}
+            <button class="btn-ver">Detalhes</button>
+          </div>
         </div>
       </div>
     `;
@@ -235,7 +250,18 @@ function openModal(i) {
   // informações
   document.getElementById('modalBrand').textContent = p.brand;
   document.getElementById('modalName').textContent  = p.name;
-  document.getElementById('modalPrice').textContent = p.price;
+  // preço com riscado no modal
+  const priceEl = document.getElementById('modalPrice');
+  if (p.oldPrice) {
+    priceEl.innerHTML = `
+      <span class="modal-price-old">${p.oldPrice}</span>
+      <div class="modal-price-row">
+        <span>${p.price}</span>
+        <span class="price-off">22% OFF</span>
+      </div>`;
+  } else {
+    priceEl.textContent = p.price;
+  }
   document.getElementById('modalDesc').textContent  = p.desc;
 
   // numeração
