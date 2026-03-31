@@ -184,8 +184,8 @@ const products = [
   {
     brand: 'New Balance',
     name: 'New Balance Fresh Foam',
-    price: 'R$ 179,90',
-    oldPrice: 'R$ 229,90',
+    price: 'R$ 249,90',
+    oldPrice: 'R$ 269,90',
     tag: 'Conforto',
     desc: 'O New Balance Fresh Foam foi desenvolvido para oferecer máximo conforto com excelente amortecimento. A tecnologia Fresh Foam proporciona pisada macia e estável, perfeita para caminhadas, corridas leves e uso prolongado no dia a dia.',
     images: [
