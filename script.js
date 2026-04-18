@@ -274,7 +274,7 @@ function renderCards() {
           </div>
           <div class="btn-ver-wrap">
             ${p.oldPrice ? `<span class="price-off">22% OFF</span>` : ''}
-            <button class="btn-ver">Detalhes</button>
+            <button class="btn-ver">Detalhes <span>&rarr;</span></button>
           </div>
         </div>
       </div>

@@ -14,18 +14,16 @@
 }
 
 :root {
-  /* fundo em cinza claro quente para não "matar" o layout */
-  --bg:      #e7e4de;
-  /* cartas levemente amadeiradas, mas bem claras */
-  --surface: #f9f4ec;
-  --ink:     #151515;
-  --muted:   #8a8680;
-  --border:  #d0c4b5;
-  --green:   #25d366;
-  --radius:  18px;
-  --shadow:  0 8px 26px rgba(0, 0, 0, 0.18);
-  /* tom madeira quente para detalhes */
-  --accent-wood: #b6763b;
+  --bg: #F9F8F6;
+  --surface: #FFFFFF;
+  --ink: #1C1B1A;
+  --muted: #8A8885;
+  --border: #E8E6E1;
+  --green: #25d366;
+  --radius: 20px;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.035);
+  --shadow-hover: 0 22px 50px rgba(0, 0, 0, 0.08);
+  --accent: #A38262;
 }
 
 html {
@@ -46,40 +44,42 @@ body {
    HERO
    ══════════════════════════════════════ */
 header {
-  padding: 52px 24px 40px;
+  padding: 80px 24px 60px;
   text-align: center;
-  animation: fadeDown 0.6s ease both;
+  animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .badge {
   display: inline-block;
-  /* destaque com tom de madeira */
-  background: var(--accent-wood);
-  color: #fff;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-family: 'Syne', sans-serif;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 6px 16px;
+  padding: 8px 18px;
   border-radius: 99px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  color: var(--ink);
   line-height: 1.15;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .subtitle {
   color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 300;
-  max-width: 340px;
+  font-size: 1.05rem;
+  font-weight: 400;
+  max-width: 420px;
   margin: 0 auto;
 }
 
@@ -105,8 +105,7 @@ h1 {
 .section-label h2::after {
   content: '';
   flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(182, 118, 59, 0.7));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0), var(--border));
 }
 
 
@@ -114,12 +113,12 @@ h1 {
    GRID
    ══════════════════════════════════════ */
 .catalog {
-  max-width: 1080px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px 100px;
+  padding: 0 24px 100px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 32px;
 }
 
 
@@ -130,16 +129,16 @@ h1 {
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  border: 1px solid rgba(182, 118, 59, 0.18);
+  border: 1px solid rgba(0,0,0,0.03);
   overflow: hidden;
-  transition: transform 0.28s cubic-bezier(.25, .8, .25, 1), box-shadow 0.28s;
-  animation: fadeUp 0.5s ease both;
+  transition: transform 0.4s cubic-bezier(.25, .8, .25, 1), box-shadow 0.4s ease;
+  animation: fadeUp 0.6s ease both;
   cursor: pointer;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
 }
 
 .card-img-wrap {
@@ -161,17 +160,19 @@ h1 {
 
 .card-tag {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(6px);
+  top: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  color: var(--ink);
   font-family: 'Syne', sans-serif;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 6px 14px;
   border-radius: 99px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .card-body {
@@ -242,24 +243,27 @@ h1 {
 }
 
 .btn-ver {
-  background: var(--accent-wood);
-  color: #fff;
-  border: none;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.82rem;
-  font-weight: 500;
-  padding: 9px 15px;
+  font-weight: 600;
+  padding: 9px 18px;
   border-radius: 12px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: all 0.25s ease;
   display: flex;
   align-items: center;
   gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .btn-ver:hover {
-  background: #8c562b;
-  transform: scale(1.03);
+  background: var(--ink);
+  color: var(--surface);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 }
 
 
@@ -269,8 +273,8 @@ h1 {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.52);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
   align-items: flex-end;
@@ -711,9 +715,9 @@ h1 {
   }
 
   .catalog {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 0 12px 100px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 16px 100px;
   }
 
   .card-body {
